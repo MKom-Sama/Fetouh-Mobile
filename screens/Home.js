@@ -28,17 +28,41 @@ export default function Home() {
     { id: 2, name: "Crepe", icon: crepe },
     { id: 3, name: "Side", icon: fries },
   ];
-  const menuItems = [
-    { id: 0, name: "veggy-pizza", photo: veggyPizza },
-    { id: 1, name: "veggy-pizza", photo: veggyPizza },
-    { id: 2, name: "veggy-pizza", photo: veggyPizza },
-  ];
+  const {
+    easternMenuItems,
+    italianMenuItems,
+    crepeMenuItems,
+    sideMenuItems,
+  } = require("../DummyDB");
 
   const [selectedCategory, setSelectedCategory] = React.useState({});
+  const [menuItems, setMenuItems] = React.useState([]);
 
   // React.useEffect(() => {
   //     console.log(`selectedCategory is : ${selectedCategory.name}`);
   // },[selectedCategory])
+
+  const onSelectedCategory = (selectedCategory) => {
+    setSelectedCategory(selectedCategory);
+  
+    // should here change menuItems
+    switch (selectedCategory.name) {
+      case "Eastern":
+        setMenuItems(easternMenuItems);
+        break;
+      case "Italian":
+        setMenuItems(italianMenuItems);
+        break;
+      case "Crepe":
+        setMenuItems(crepeMenuItems);
+        break;
+      case "Side":
+        setMenuItems(sideMenuItems);
+        break;
+      default:
+        break;
+    }
+  };
 
   const renderMainCategories = () => {
     const renderItem = ({ item }) => {
@@ -49,7 +73,7 @@ export default function Home() {
             backgroundColor:
               selectedCategory.id == item.id ? "#ef5350" : "#FFFFFF",
           }}
-          onPress={() => setSelectedCategory(item)}
+          onPress={() => onSelectedCategory(item)}
         >
           <View
             style={{
@@ -68,6 +92,7 @@ export default function Home() {
                 marginBottom: -16,
                 paddingTop: 15,
                 color: selectedCategory.id == item.id ? "#FFFFFF" : "#000000",
+                fontFamily:'pacifico'
               }}
             >
               {item.name}
@@ -89,10 +114,7 @@ export default function Home() {
       </View>
     );
   };
-  const renderMenuList = () => {
-    const renderItem = ({ item }) => {};
-  };
-  function renderRestaurantList() {
+  function renderMenuList() {
     const renderItem = ({ item }) => {
       return (
         <TouchableOpacity
@@ -158,8 +180,10 @@ export default function Home() {
     <View>
       <AppTitle />
       {renderMainCategories()}
-      <Text style={{ fontSize:22,margin:5,marginTop:-18}}>{selectedCategory.name}</Text>
-      {renderRestaurantList()}
+      <Text style={{ fontSize: 24, margin: 5, marginTop: -28,fontFamily:'pacifico',marginLeft:20 }}>
+        {selectedCategory.name}
+      </Text>
+      {renderMenuList()}
     </View>
   );
 }
