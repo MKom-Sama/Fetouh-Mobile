@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, SafeAreaView } from "react-native";
-import { Provider as PaperProvider, FAB } from "react-native-paper";
+import { Provider as PaperProvider} from "react-native-paper";
 
 import { BottomNavigation, Text, IconButton } from "react-native-paper";
 
@@ -12,7 +12,7 @@ import * as Font from "expo-font";
 
 // Utils
 import AppLoading from "expo-app-loading";
-
+import { ModalPortal } from 'react-native-modals';
 // Navigation
 
 const getFonts = () =>
@@ -67,6 +67,7 @@ export default function App() {
             barStyle={styles.barStyle}
             // renderIcon={renderIcon}
           />
+          <ModalPortal />
         </PaperProvider>
       </SafeAreaView>
     );

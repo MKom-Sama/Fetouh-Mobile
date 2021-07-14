@@ -11,6 +11,8 @@ import { Text } from "react-native-paper";
 
 import AppTitle from "../components/visuals/AppTitle";
 
+import { BottomModal, ModalContent,SlideAnimation } from "react-native-modals";
+
 // icons (clean later)
 const pizza = require("../assets/icons/pizza-icon.png");
 const pie = require("../assets/icons/pie-icon.png");
@@ -38,13 +40,15 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = React.useState({});
   const [menuItems, setMenuItems] = React.useState([]);
 
+  const [modalVis, setModalVis] = React.useState(false);
+  const [selectedItem, setSelectedItem] = React.useState({});
   // React.useEffect(() => {
   //     console.log(`selectedCategory is : ${selectedCategory.name}`);
   // },[selectedCategory])
 
   const onSelectedCategory = (selectedCategory) => {
     setSelectedCategory(selectedCategory);
-  
+
     // should here change menuItems
     switch (selectedCategory.name) {
       case "Eastern":
@@ -92,7 +96,7 @@ export default function Home() {
                 marginBottom: -16,
                 paddingTop: 15,
                 color: selectedCategory.id == item.id ? "#FFFFFF" : "#000000",
-                fontFamily:'pacifico'
+                fontFamily: "pacifico",
               }}
             >
               {item.name}
@@ -119,7 +123,11 @@ export default function Home() {
       return (
         <TouchableOpacity
           style={{ marginBottom: 5 }}
-          onPress={() => console.log("Pressed")}
+          onPress={() => {
+            // console.log("Pressed");
+            setSelectedItem(item);
+            setModalVis(true);
+          }}
         >
           {/* Image */}
           <View
@@ -180,10 +188,33 @@ export default function Home() {
     <View>
       <AppTitle />
       {renderMainCategories()}
-      <Text style={{ fontSize: 24, margin: 5, marginTop: -28,fontFamily:'pacifico',marginLeft:20 }}>
+      <Text
+        style={{
+          fontSize: 24,
+          margin: 5,
+          marginTop: -28,
+          fontFamily: "pacifico",
+          marginLeft: 20,
+        }}
+      >
         {selectedCategory.name}
       </Text>
       {renderMenuList()}
+      <BottomModal
+        visible={modalVis}
+        modalAnimation={
+          new SlideAnimation({
+            slideFrom: "bottom",
+          })
+        }
+        onTouchOutside={() => {
+          setModalVis(false);
+        }}
+      >
+        <ModalContent>
+          <Text>You selected : {selectedItem.name}</Text>
+        </ModalContent>
+      </BottomModal>
     </View>
   );
 }
