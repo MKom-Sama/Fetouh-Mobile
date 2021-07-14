@@ -212,7 +212,7 @@ export default function Home() {
         }}
       >
         <ModalContent>
-          <Text>You selected : {selectedItem.name}</Text>
+          <Text>Your selected Item : {selectedItem.name}</Text>
         </ModalContent>
       </BottomModal>
     </View>
