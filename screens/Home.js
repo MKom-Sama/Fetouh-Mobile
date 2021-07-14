@@ -101,7 +101,7 @@ export default function Home() {
             <Image
               source={item.icon}
               resizeMode="contain"
-              style={{ width: 38, height: 38, marginTop: 12 }}
+              style={{ width: 38, height: 38, marginTop: 19 }}
             />
             <Text
               style={{
