@@ -218,7 +218,7 @@ export default function Home() {
     </View>
   );
 }
-
+// nothing important
 const styles = StyleSheet.create({
   categoryTouchableOpacity: {
     padding: 10,
