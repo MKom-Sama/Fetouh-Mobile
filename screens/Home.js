@@ -1,4 +1,6 @@
 import React from "react";
+import { Store } from "../Store";
+
 import {
   StyleSheet,
   View,
@@ -31,6 +33,8 @@ const fries = require("../assets/icons/fries-icon.png");
 const veggyPizza = require("../assets/img/vegy-pizza.jpeg");
 
 export default function Home() {
+  const { getCart, addToCart } = React.useContext(Store);
+
   // DUMMY DATA
   const categories = [
     { id: 0, name: "Eastern", icon: pie },
@@ -52,7 +56,7 @@ export default function Home() {
   const [selectedItem, setSelectedItem] = React.useState({});
   const [selectedItemPrice, setSelectedItemPrice] = React.useState(0);
 
-  const [numericInputVal, setNumericInputVal] = React.useState(0);
+  const [numericInputVal, setNumericInputVal] = React.useState(1);
 
   const debugVar = (variable) =>
     React.useEffect(() => {
@@ -202,7 +206,24 @@ export default function Home() {
       selectedItemPrice == 0
     ) {
       setSelectedItemPrice(price);
+      // fixing numeric input bug
+      setNumericInputVal(1);
     }
+  };
+  const addItemToCart = () => {
+    // getting the size
+    let itemSize = Object.keys(selectedItem.price).find(
+      (key) => selectedItem.price[key] === selectedItemPrice
+    );
+
+    let itemToAddToCart = {
+      name: selectedItem.name,
+      size: itemSize,
+      quantity: numericInputVal,
+      sizePrice: selectedItemPrice,
+      totalPrice: selectedItemPrice * numericInputVal,
+    };
+    addToCart(itemToAddToCart); //STORE
   };
   return (
     <View>
@@ -230,15 +251,21 @@ export default function Home() {
         footer={
           <ModalFooter>
             <ModalButton
-              style={{ }}
+              style={{}}
               text="CANCEL"
-              onPress={() => {setModalVis(false)}}
+              onPress={() => {
+                setModalVis(false);
+              }}
             />
             <Button
               mode="contained"
               icon="basket-fill"
-              style={{flex:1,justifyContent:'center',backgroundColor:'#e65100'}}
-              onPress={() => console.log("Pressed")}
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                backgroundColor: "#e65100",
+              }}
+              onPress={() => addItemToCart()}
             >
               Add
             </Button>
@@ -311,6 +338,7 @@ export default function Home() {
             <NumericInput
               onChange={(value) => setNumericInputVal(value)}
               rounded
+              value={numericInputVal}
               id="numeric-input"
               minValue={1}
               totalWidth={120}
