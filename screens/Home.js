@@ -7,11 +7,19 @@ import {
   FlatList,
 } from "react-native";
 
-import { Text } from "react-native-paper";
+import { Text, FAB, IconButton, Button } from "react-native-paper";
 
 import AppTitle from "../components/visuals/AppTitle";
 
-import { BottomModal, ModalContent,SlideAnimation } from "react-native-modals";
+import {
+  BottomModal,
+  ModalContent,
+  SlideAnimation,
+  ModalTitle,
+  ModalButton,
+  ModalFooter,
+} from "react-native-modals";
+import NumericInput from "react-native-numeric-input";
 
 // icons (clean later)
 const pizza = require("../assets/icons/pizza-icon.png");
@@ -42,9 +50,14 @@ export default function Home() {
 
   const [modalVis, setModalVis] = React.useState(false);
   const [selectedItem, setSelectedItem] = React.useState({});
-  // React.useEffect(() => {
-  //     console.log(`selectedCategory is : ${selectedCategory.name}`);
-  // },[selectedCategory])
+  const [selectedItemPrice, setSelectedItemPrice] = React.useState(0);
+
+  const [numericInputVal, setNumericInputVal] = React.useState(0);
+
+  const debugVar = (variable) =>
+    React.useEffect(() => {
+      console.log(variable);
+    }, [variable]);
 
   const onSelectedCategory = (selectedCategory) => {
     setSelectedCategory(selectedCategory);
@@ -67,7 +80,6 @@ export default function Home() {
         break;
     }
   };
-
   const renderMainCategories = () => {
     const renderItem = ({ item }) => {
       return (
@@ -183,7 +195,15 @@ export default function Home() {
       />
     );
   }
-
+  const setSelectedItemPriceOnCondition = (price) => {
+    // check if price is *not included in the item price list
+    if (
+      !Object.values(selectedItem.price).includes(selectedItemPrice) ||
+      selectedItemPrice == 0
+    ) {
+      setSelectedItemPrice(price);
+    }
+  };
   return (
     <View>
       <AppTitle />
@@ -207,12 +227,125 @@ export default function Home() {
             slideFrom: "bottom",
           })
         }
+        footer={
+          <ModalFooter>
+            <ModalButton
+              style={{ }}
+              text="CANCEL"
+              onPress={() => {setModalVis(false)}}
+            />
+            <Button
+              mode="contained"
+              icon="basket-fill"
+              style={{flex:1,justifyContent:'center',backgroundColor:'#e65100'}}
+              onPress={() => console.log("Pressed")}
+            >
+              Add
+            </Button>
+          </ModalFooter>
+        }
+        modalTitle={<ModalTitle title={selectedItem.name} />}
         onTouchOutside={() => {
           setModalVis(false);
         }}
       >
         <ModalContent>
-          <Text>You selected : {selectedItem.name}</Text>
+          {Object.keys(selectedItem).length !== 0 &&
+          selectedItem.price["fixed"] == undefined ? (
+            // return sizes UI
+            <View
+              AccessibilityAction={setSelectedItemPriceOnCondition(
+                selectedItem.price["small"]
+              )}
+              style={{ flexDirection: "row", margin: 10, marginBottom: 9 }}
+            >
+              <FAB
+                style={styles.fab}
+                icon="alpha-s"
+                onPress={() =>
+                  setSelectedItemPrice(selectedItem.price["small"])
+                }
+              />
+              <FAB
+                style={styles.fab}
+                icon="alpha-m"
+                onPress={() =>
+                  setSelectedItemPrice(selectedItem.price["medium"])
+                }
+              />
+              <FAB
+                style={styles.fab}
+                icon="alpha-l"
+                onPress={() =>
+                  setSelectedItemPrice(selectedItem.price["large"])
+                }
+              />
+              <FAB
+                style={styles.fab}
+                icon="alpha-x"
+                onPress={() =>
+                  setSelectedItemPrice(selectedItem.price["XLarge"])
+                }
+              />
+            </View>
+          ) : Object.keys(selectedItem).length !== 0 ? (
+            <View
+              onAccessibilityAction={setSelectedItemPriceOnCondition(
+                selectedItem.price["fixed"]
+              )}
+            ></View>
+          ) : (
+            <View>{/* Selected Item here is still undefined */}</View>
+          )}
+
+          {/* Numeric Input */}
+          <View
+            style={{
+              flexDirection: "row",
+              margin: 10,
+              marginBottom: 9,
+              marginLeft: 16,
+              alignItems: "center",
+            }}
+          >
+            <NumericInput
+              onChange={(value) => setNumericInputVal(value)}
+              rounded
+              id="numeric-input"
+              minValue={1}
+              totalWidth={120}
+            />
+            <IconButton icon="alpha-x" style={{ marginLeft: -2 }} />
+            <View
+              style={{
+                borderRadius: 10,
+                height: 47,
+                width: 100,
+                marginLeft: -10,
+                borderColor: "#000000",
+                borderWidth: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text>{selectedItemPrice}</Text>
+            </View>
+            <IconButton icon="equal" style={{ marginLeft: -2 }} />
+            <View
+              style={{
+                borderRadius: 10,
+                height: 47,
+                width: 90,
+                marginLeft: -10,
+                borderColor: "#000000",
+                borderWidth: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text>{numericInputVal * selectedItemPrice}</Text>
+            </View>
+          </View>
         </ModalContent>
       </BottomModal>
     </View>
@@ -246,5 +379,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 1,
+  },
+  fab: {
+    margin: 5,
   },
 });
