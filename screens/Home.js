@@ -217,6 +217,7 @@ export default function Home() {
     );
 
     let itemToAddToCart = {
+      id:selectedItem.id,
       name: selectedItem.name,
       size: itemSize,
       quantity: numericInputVal,
@@ -255,6 +256,7 @@ export default function Home() {
               text="CANCEL"
               onPress={() => {
                 setModalVis(false);
+                setNumericInputVal(1);
               }}
             />
             <Button
@@ -273,6 +275,7 @@ export default function Home() {
         }
         modalTitle={<ModalTitle title={selectedItem.name} />}
         onTouchOutside={() => {
+          setNumericInputVal(1);
           setModalVis(false);
         }}
       >

@@ -37,7 +37,7 @@ const easternMenuItems = [
 ]
 const italianMenuItems = [
     {
-        id: 0,
+        id: 3,
         name: "Pepperoni",
         photo: veggyPizza,
         price: {
@@ -48,7 +48,7 @@ const italianMenuItems = [
         }
     },
     {
-        id: 1,
+        id: 4,
         name: "Salami",
         photo: veggyPizza,
         price: {
@@ -59,7 +59,7 @@ const italianMenuItems = [
         }
     },
     {
-        id: 2,
+        id: 5,
         name: "Chicken",
         photo: veggyPizza,
         price: {
@@ -72,7 +72,7 @@ const italianMenuItems = [
 ]
 const crepeMenuItems = [
     {
-        id: 0,
+        id: 6,
         name: "Crispy Crepe",
         photo: veggyPizza,
         price: {
@@ -80,7 +80,7 @@ const crepeMenuItems = [
         }
     },
     {
-        id: 1,
+        id: 7,
         name: "Beef Crepe",
         photo: veggyPizza,
         price: {
@@ -88,7 +88,7 @@ const crepeMenuItems = [
         }
     },
     {
-        id: 2,
+        id: 8,
         name: "Cheese Crepe",
         photo: veggyPizza,
         price: {
@@ -98,7 +98,7 @@ const crepeMenuItems = [
 ]
 const sideMenuItems = [
     {
-        id: 0,
+        id: 9,
         name: "Fries",
         photo: veggyPizza,
         price: {
@@ -106,7 +106,7 @@ const sideMenuItems = [
         }
     },
     {
-        id: 1,
+        id: 10,
         name: "Pepsi",
         photo: veggyPizza,
         price: {
@@ -114,7 +114,7 @@ const sideMenuItems = [
         }
     },
     {
-        id: 2,
+        id: 11,
         name: "Water",
         photo: veggyPizza,
         price: {
