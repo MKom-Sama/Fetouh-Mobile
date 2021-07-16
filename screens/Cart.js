@@ -21,7 +21,8 @@ import AppTitle from "../components/visuals/AppTitle";
 import { Store } from "../Store";
 
 export default function Cart() {
-  const { getCart, getCartTotalPrice,removeFromCart } = React.useContext(Store);
+  const { getCart, getCartTotalPrice, removeFromCart } =
+    React.useContext(Store);
 
   const [modalVis, setModalVis] = React.useState(false);
 
@@ -63,7 +64,7 @@ export default function Cart() {
                 width: "10%",
               }}
               onPress={() => {
-                removeFromCart(item.id,item.totalPrice)
+                removeFromCart(item.id, item.totalPrice);
               }}
             />
             <Text style={{ width: "25%", marginLeft: 20 }}>{item.name}</Text>
@@ -109,12 +110,19 @@ export default function Cart() {
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
           contentContainerStyle={{ flexGrow: 1 }}
-          style={{ height: "80%" }}
+          style={{ height: "86%" }}
         />
-        <View style={{ marginBottom: "25%" }}>
+        <View style={{}}>
           <Button
             mode="contained"
-            style={{ backgroundColor: "#ffa726" }}
+            icon="check-outline"
+            style={{
+              backgroundColor: "#ffa726",
+              position: "absolute",
+              top: 0,
+              width: "90%",
+              alignSelf: "center",
+            }}
             onPress={() => setModalVis(true)}
           >
             Checkout
