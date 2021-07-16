@@ -23,9 +23,8 @@ import {
 } from "react-native-modals";
 import NumericInput from "react-native-numeric-input";
 
-// utils 
+// utils
 import { shortUID } from "../utils/uuid";
-
 
 // icons (clean later)
 const pizza = require("../assets/icons/pizza-icon.png");
@@ -221,7 +220,7 @@ export default function Home() {
     );
 
     let itemToAddToCart = {
-      id:shortUID(),
+      id: shortUID(),
       name: selectedItem.name,
       size: itemSize,
       quantity: numericInputVal,
@@ -294,28 +293,52 @@ export default function Home() {
               style={{ flexDirection: "row", margin: 10, marginBottom: 9 }}
             >
               <FAB
-                style={styles.fab}
+                style={{
+                  ...styles.fab,
+                  backgroundColor:
+                    selectedItem.price["small"] == selectedItemPrice
+                      ? "#ff5252"
+                      : "#00dac4",
+                }}
                 icon="alpha-s"
                 onPress={() =>
                   setSelectedItemPrice(selectedItem.price["small"])
                 }
               />
               <FAB
-                style={styles.fab}
+                style={{
+                  ...styles.fab,
+                  backgroundColor:
+                    selectedItem.price["medium"] == selectedItemPrice
+                      ? "#ff5252"
+                      : "#00dac4",
+                }}
                 icon="alpha-m"
                 onPress={() =>
                   setSelectedItemPrice(selectedItem.price["medium"])
                 }
               />
               <FAB
-                style={styles.fab}
+                style={{
+                  ...styles.fab,
+                  backgroundColor:
+                    selectedItem.price["large"] == selectedItemPrice
+                      ? "#ff5252"
+                      : "#00dac4",
+                }}
                 icon="alpha-l"
                 onPress={() =>
                   setSelectedItemPrice(selectedItem.price["large"])
                 }
               />
               <FAB
-                style={styles.fab}
+                style={{
+                  ...styles.fab,
+                  backgroundColor:
+                    selectedItem.price["XLarge"] == selectedItemPrice
+                      ? "#ff5252"
+                      : "#00dac4",
+                }}
                 icon="alpha-x"
                 onPress={() =>
                   setSelectedItemPrice(selectedItem.price["XLarge"])
