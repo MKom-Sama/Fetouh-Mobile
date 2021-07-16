@@ -8,11 +8,23 @@ import {
 } from "react-native";
 import { Button, IconButton } from "react-native-paper";
 
+import {
+  BottomModal,
+  ModalContent,
+  SlideAnimation,
+  ModalTitle,
+  ModalButton,
+  ModalFooter,
+} from "react-native-modals";
+
 import AppTitle from "../components/visuals/AppTitle";
 import { Store } from "../Store";
 
 export default function Cart() {
-  const { getCart,getCartTotalPrice } = React.useContext(Store);
+  const { getCart, getCartTotalPrice } = React.useContext(Store);
+
+  const [modalVis, setModalVis] = React.useState(false);
+
   // let itemToAddToCart = {
   //     id:selectedItem.id,
   //     name: selectedItem.name,
@@ -43,12 +55,15 @@ export default function Cart() {
         <TouchableOpacity>
           <View style={styles.item}>
             <IconButton
-              icon="alpha-x"
+              icon="minus"
+              color={"#b71c1c"}
               style={{
-                color: "#f44336",
                 position: "absolute",
                 left: -6,
                 width: "10%",
+              }}
+              onPress={() => {
+                console.log("delete pressed");
               }}
             />
             <Text style={{ width: "25%", marginLeft: 20 }}>{item.name}</Text>
@@ -94,28 +109,74 @@ export default function Cart() {
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
           contentContainerStyle={{ flexGrow: 1 }}
-          style={{height:'80%'}}
+          style={{ height: "80%" }}
         />
-        <View style={{ ...styles.item, ...styles.totalPrice }}>
-          <Text style={{fontWeight:'bold'}}>Total Price</Text>
-
-          <Text
+        <View style={{ marginBottom: "25%" }}>
+          <Button
+            mode="contained"
+            style={{ backgroundColor: "#ffa726" }}
+            onPress={() => setModalVis(true)}
+          >
+            Checkout
+          </Button>
+        </View>
+        <BottomModal
+          visible={modalVis}
+          modalAnimation={
+            new SlideAnimation({
+              slideFrom: "bottom",
+            })
+          }
+          footer={
+            <ModalFooter>
+              <ModalButton
+                style={{}}
+                text="CANCEL"
+                onPress={() => {
+                  setModalVis(false);
+                }}
+              />
+              <Button
+                mode="contained"
+                icon="thumb-up"
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  backgroundColor: "#e65100",
+                }}
+                onPress={() => {}}
+              >
+                Confirm
+              </Button>
+            </ModalFooter>
+          }
+          modalTitle={<ModalTitle title={"Confirm Checkout"} />}
+          onTouchOutside={() => {
+            setModalVis(false);
+          }}
+        >
+          <ModalContent>
+            <Text style={{ fontWeight: "bold", width: "50%", fontSize: 25 }}>
+              Total Price :
+            </Text>
+            <Text
               style={{
                 position: "absolute",
                 right: 10,
                 textAlign: "center",
-                width: "19%",
+                width: "50%",
                 borderColor: "#558b2f",
                 borderRadius: 10,
                 borderWidth: 2,
                 padding: 5,
+                fontSize: 25,
+                margin: 3,
               }}
             >
               {getCartTotalPrice()}LE
             </Text>
-          {/* <Button mode="contained" style={{width:'30%'}}> Checkout </Button> */}
-        </View>
-       
+          </ModalContent>
+        </BottomModal>
       </View>
     );
   };
@@ -141,6 +202,6 @@ const styles = StyleSheet.create({
   },
   totalPrice: {
     padding: 20,
-    backgroundColor: '#f6f5f6',
+    backgroundColor: "#f6f5f6",
   },
 });
