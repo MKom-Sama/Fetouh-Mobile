@@ -18,6 +18,14 @@ export const StoreProvider = (props) => {
   const getCart = () => {
     return cart;
   };
+  const removeFromCart = (uid, totalPrice) => {
+    
+    // remove item from cart
+    setCart(cart.filter(item => item.id !== uid))
+    
+    // reduce total price
+    setCartTotalPrice(cartTotalPrice - totalPrice)
+  }
   const getCartTotalPrice = () => {
     return cartTotalPrice
   }
@@ -27,7 +35,8 @@ export const StoreProvider = (props) => {
       value={{
         addToCart,
         getCart,
-        getCartTotalPrice
+        getCartTotalPrice,
+        removeFromCart
       }}
     >
       {props.children}

@@ -23,6 +23,10 @@ import {
 } from "react-native-modals";
 import NumericInput from "react-native-numeric-input";
 
+// utils 
+import { shortUID } from "../utils/uuid";
+
+
 // icons (clean later)
 const pizza = require("../assets/icons/pizza-icon.png");
 const pie = require("../assets/icons/pie-icon.png");
@@ -217,7 +221,7 @@ export default function Home() {
     );
 
     let itemToAddToCart = {
-      id:selectedItem.id,
+      id:shortUID(),
       name: selectedItem.name,
       size: itemSize,
       quantity: numericInputVal,

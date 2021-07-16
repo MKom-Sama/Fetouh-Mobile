@@ -21,12 +21,12 @@ import AppTitle from "../components/visuals/AppTitle";
 import { Store } from "../Store";
 
 export default function Cart() {
-  const { getCart, getCartTotalPrice } = React.useContext(Store);
+  const { getCart, getCartTotalPrice,removeFromCart } = React.useContext(Store);
 
   const [modalVis, setModalVis] = React.useState(false);
 
   // let itemToAddToCart = {
-  //     id:selectedItem.id,
+  //     id:shortUID(),
   //     name: selectedItem.name,
   //     size: itemSize,
   //     quantity: numericInputVal,
@@ -63,7 +63,7 @@ export default function Cart() {
                 width: "10%",
               }}
               onPress={() => {
-                console.log("delete pressed");
+                removeFromCart(item.id,item.totalPrice)
               }}
             />
             <Text style={{ width: "25%", marginLeft: 20 }}>{item.name}</Text>
