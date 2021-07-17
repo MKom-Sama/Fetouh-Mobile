@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { Button, Card } from "react-native-paper";
 
+
 import AppTitle from "../components/visuals/AppTitle";
 
 import { callNumber, openGPS } from "../utils/linking";

@@ -68,6 +68,7 @@ export default function App() {
               sceneAnimationEnabled={true}
               barStyle={styles.barStyle}
               // renderIcon={renderIcon}
+              keyboardHidesNavigationBar={true}
             />
             <ModalPortal />
           </PaperProvider>

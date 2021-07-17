@@ -196,8 +196,8 @@ export default function Home() {
         renderItem={renderItem}
         contentContainerStyle={{
           paddingHorizontal: 20,
-          paddingBottom: "60%",
         }}
+        style={{height:'64%'}}
         scrollEnabled
       />
     );
