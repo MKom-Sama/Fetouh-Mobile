@@ -16,8 +16,9 @@ import PhoneInput from "react-native-phone-input";
 import HideWithKeyboard from "react-native-hide-with-keyboard";
 
 import AppTitle from "../components/visuals/AppTitle";
-
+// Images
 const fetouhBackground = require('../assets/img/fetouhBackground.jpg');
+const AbdoFetouh = require('../assets/img/5aloAbdo.jpeg');
 export default function Account() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -26,8 +27,8 @@ export default function Account() {
         <View
           style={{
             border: 2,
-            borderWidth: 2,
-            borderColor: "#ef5350",
+            // borderWidth: 2,
+            // borderColor: "#ef5350",
             height: "40%",
           }}
         >
@@ -40,9 +41,7 @@ export default function Account() {
         >
           <Avatar.Image
             size={125}
-            source={{
-              uri: "https://cdn.discordapp.com/attachments/860051709467557898/865715553736982558/hilloo_2.png",
-            }}
+            source={AbdoFetouh}
           />
         </HideWithKeyboard>
         <IconButton icon="pencil" style={{ alignSelf: "flex-end" }} />

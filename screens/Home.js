@@ -95,6 +95,9 @@ export default function Home() {
             ...styles.categoryTouchableOpacity,
             backgroundColor:
               selectedCategory.id == item.id ? "#ef5350" : "#FFFFFF",
+            borderWidth: 1,
+            borderColor: "#d50000",
+            marginTop: "-5%",
           }}
           onPress={() => onSelectedCategory(item)}
         >
@@ -152,6 +155,7 @@ export default function Home() {
           <View
             style={{
               marginBottom: 10,
+              borderColor: "#d50000",
             }}
           >
             <Image
@@ -197,7 +201,7 @@ export default function Home() {
         contentContainerStyle={{
           paddingHorizontal: 20,
         }}
-        style={{height:'64%'}}
+        style={{ height: "64%" }}
         scrollEnabled
       />
     );
@@ -229,6 +233,21 @@ export default function Home() {
     };
     addToCart(itemToAddToCart); //STORE
   };
+  const renderSelectedCategorySlogan = (categoryName) => {
+    switch (categoryName) {
+      case "Eastern":
+        return "الفطير الشرقى 😋😋";
+      case "Italian":
+        return "البيتزا الايطالى 🇮🇹";
+      case "Crepe":
+        return "الكريبات 🔥";
+      case "Side":
+        return "التحبيشات 😎";
+
+      default:
+        break;
+    }
+  };
   return (
     <View>
       <AppTitle />
@@ -239,10 +258,11 @@ export default function Home() {
           margin: 5,
           marginTop: -28,
           fontFamily: "pacifico",
-          marginLeft: 20,
+          marginRight: 20,
+          alignSelf: "flex-end",
         }}
       >
-        {selectedCategory.name}
+        {renderSelectedCategorySlogan(selectedCategory.name)}
       </Text>
       {renderMenuList()}
       <BottomModal
@@ -282,7 +302,7 @@ export default function Home() {
           setModalVis(false);
         }}
       >
-        <ModalContent>
+        <ModalContent style={{ alignSelf: "center" }}>
           {Object.keys(selectedItem).length !== 0 &&
           selectedItem.price["fixed"] == undefined ? (
             // return sizes UI

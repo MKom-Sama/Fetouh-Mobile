@@ -4,7 +4,7 @@ const easternMenuItems = [
     {
         id: 0,
         name: "sugar and cream",
-        photo: veggyPizza,
+        photo: require("./assets/img/sweetAndSugar.png"),
         price: {
             'small': 50,
             'medium': 80,
@@ -38,8 +38,8 @@ const easternMenuItems = [
 const italianMenuItems = [
     {
         id: 3,
-        name: "Pepperoni",
-        photo: veggyPizza,
+        name: "Super Crunchy",
+        photo: require("./assets/img/superCrunchy.png"),
         price: {
             'small': 60,
             'medium': 90,

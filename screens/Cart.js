@@ -56,7 +56,7 @@ export default function Cart() {
         <TouchableOpacity>
           <View style={styles.item}>
             <IconButton
-              icon="minus"
+              icon="delete"
               color={"#b71c1c"}
               style={{
                 position: "absolute",
@@ -76,8 +76,7 @@ export default function Cart() {
                 marginLeft: "14%",
               }}
             >
-              <Text>{item.quantity}</Text>
-              <IconButton icon="alpha-x" style={{ width: 15 }} />
+              <Text>{item.quantity}x</Text>
               <Text>{formatSize(item.size)}</Text>
             </View>
 
