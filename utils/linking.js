@@ -23,7 +23,7 @@ const callNumber = phone => {
 
 const openGPS = (lat, lng) => {
   var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-  // var url = scheme + `${lat},${lng}`;
+
 
   let androidLabel = 'مطعم وكافيه فتوح اخوان فتوح مطعم وكافيه';
   let iosLabel = 'شارع 65 20L'
@@ -31,7 +31,7 @@ const openGPS = (lat, lng) => {
     ios: "maps:" + lat + "," + lng + "?q=" + iosLabel,
     android: "geo:" + lat + "," + lng + "?q=" + androidLabel
   });
-  // `google.navigation:${lat+lng}=100+101`
+
   Linking.openURL(url);
 }
 
