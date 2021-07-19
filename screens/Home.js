@@ -296,7 +296,7 @@ export default function Home() {
               style={{
                 flex: 1,
                 justifyContent: "center",
-                backgroundColor: "#e65100",
+                backgroundColor: "#000000",
               }}
               onPress={() => {
                 addItemToCart();
