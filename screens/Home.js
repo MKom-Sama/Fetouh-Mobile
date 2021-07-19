@@ -1,6 +1,8 @@
 import React from "react";
 import { Store } from "../Store";
 
+import { showMessage, hideMessage } from "react-native-flash-message";
+
 import {
   StyleSheet,
   View,
@@ -68,7 +70,6 @@ export default function Home() {
 
   const onSelectedCategory = (selectedCategory) => {
     setSelectedCategory(selectedCategory);
-
     // should here change menuItems
     switch (selectedCategory.name) {
       case "Eastern":
@@ -248,6 +249,13 @@ export default function Home() {
         break;
     }
   };
+
+  // on load
+  React.useEffect(() => {
+    setSelectedCategory({ id: 0, name: "Eastern", icon: pie });
+    setMenuItems(easternMenuItems);
+  }, []);
+
   return (
     <View>
       <AppTitle />
@@ -290,7 +298,14 @@ export default function Home() {
                 justifyContent: "center",
                 backgroundColor: "#e65100",
               }}
-              onPress={() => addItemToCart()}
+              onPress={() => {
+                addItemToCart();
+                showMessage({
+                  message: "Added to cart!",
+                  type: "success",
+                  icon: "success",
+                });
+              }}
             >
               Add
             </Button>

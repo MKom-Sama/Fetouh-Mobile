@@ -10,6 +10,7 @@ import { CallUs, Home, Cart, Account } from "./screens";
 
 // Styling
 import * as Font from "expo-font";
+import FlashMessage from "react-native-flash-message";
 
 // Utils
 import AppLoading from "expo-app-loading";
@@ -23,7 +24,7 @@ const getFonts = () =>
 
 export default function App() {
   // Bottom Navigation
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = React.useState(1);
   const [routes] = React.useState([
     { key: "CallUs", title: "Call us", icon: "phone" },
     { key: "Home", title: "Order", icon: "silverware-fork-knife" },
@@ -71,6 +72,7 @@ export default function App() {
               keyboardHidesNavigationBar={true}
             />
             <ModalPortal />
+            <FlashMessage position="top" />
           </PaperProvider>
         </StoreProvider>
       </SafeAreaView>
