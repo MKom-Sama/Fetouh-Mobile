@@ -50,6 +50,14 @@ export default function Cart() {
         break;
     }
   };
+  const checkOut = () => {
+    // check if user has his creditentials saved
+
+
+    // send order to backend
+
+    console.log("I got this!")
+  }
   const renderCart = () => {
     const renderItem = ({ item }) => {
       return (
@@ -122,7 +130,9 @@ export default function Cart() {
               width: "90%",
               alignSelf: "center",
             }}
-            onPress={() => setModalVis(true)}
+            onPress={() => {
+              setModalVis(true)
+            }}
           >
             Checkout
           </Button>
@@ -151,7 +161,7 @@ export default function Cart() {
                   justifyContent: "center",
                   backgroundColor: "#e65100",
                 }}
-                onPress={() => {}}
+                onPress={() => checkOut()}
               >
                 Confirm
               </Button>
