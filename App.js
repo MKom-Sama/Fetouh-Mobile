@@ -22,13 +22,14 @@ const getFonts = () =>
     pacifico: require("./assets/fonts/Pacifico-Regular.ttf"),
   });
 
+let updateCartBadgeRef;
 export default function App() {
   // Bottom Navigation
   const [index, setIndex] = React.useState(1);
-  const [routes] = React.useState([
+  const [routes, setRoutes] = React.useState([
     { key: "CallUs", title: "Call us", icon: "phone" },
     { key: "Home", title: "Order", icon: "silverware-fork-knife" },
-    { key: "Cart", title: "Cart", icon: "basket" },
+    { key: "Cart", title: "Cart", icon: "basket", badge: 0 },
     { key: "Account", title: "Account", icon: "account" },
   ]);
 
@@ -39,6 +40,22 @@ export default function App() {
     Account,
   });
 
+  const updateCartBadge = (val) => {
+    let updatedRoutes = [
+      routes[0],
+      routes[1],
+      {
+        key: "Cart",
+        title: "Cart",
+        icon: "basket",
+        badge: routes[2]["badge"] + val,
+      },
+      routes[3],
+    ];
+
+    setRoutes(updatedRoutes);
+  };
+  updateCartBadgeRef = updateCartBadge;
   // const renderIcon = ({ route, focused }) => {
   //   if (focused) {
   //     //return(<FAB icon={route.icon} />)
@@ -87,6 +104,7 @@ export default function App() {
     );
   }
 }
+export { updateCartBadgeRef };
 
 const styles = StyleSheet.create({
   container: {

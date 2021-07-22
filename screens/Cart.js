@@ -20,11 +20,17 @@ import {
 import AppTitle from "../components/visuals/AppTitle";
 import { Store } from "../Store";
 
-export default function Cart() {
+import { updateCartBadgeRef } from "../App";
+
+//utils
+import { getSavedValues } from "../utils/phoneStorage";
+
+export default function Cart({ jumpTo }) {
   const { getCart, getCartTotalPrice, removeFromCart } =
     React.useContext(Store);
 
   const [modalVis, setModalVis] = React.useState(false);
+  const [savedUserData, setSavedUserData] = React.useState({});
 
   // let itemToAddToCart = {
   //     id:shortUID(),
@@ -34,6 +40,10 @@ export default function Cart() {
   //     sizePrice: selectedItemPrice,
   //     totalPrice: selectedItemPrice * numericInputVal,
   //   };
+  const getUserDataOnDevice = async () => {
+    const user = await getSavedValues();
+    setSavedUserData(user);
+  };
   const formatSize = (size) => {
     switch (size) {
       case "small":
@@ -53,11 +63,11 @@ export default function Cart() {
   const checkOut = () => {
     // check if user has his creditentials saved
 
-
+    // jumpTo('Home');
     // send order to backend
 
-    console.log("I got this!")
-  }
+    console.log("I got this!");
+  };
   const renderCart = () => {
     const renderItem = ({ item }) => {
       return (
@@ -73,6 +83,7 @@ export default function Cart() {
               }}
               onPress={() => {
                 removeFromCart(item.id, item.totalPrice);
+                updateCartBadgeRef(-1);
               }}
             />
             <Text style={{ width: "25%", marginLeft: 20 }}>{item.name}</Text>
@@ -131,7 +142,8 @@ export default function Cart() {
               alignSelf: "center",
             }}
             onPress={() => {
-              setModalVis(true)
+              setModalVis(true);
+              getUserDataOnDevice();
             }}
           >
             Checkout
@@ -173,25 +185,77 @@ export default function Cart() {
           }}
         >
           <ModalContent>
-            <Text style={{ fontWeight: "bold", width: "50%", fontSize: 25 }}>
-              Total Price :
-            </Text>
-            <Text
-              style={{
-                position: "absolute",
-                right: 10,
-                textAlign: "center",
-                width: "50%",
-                borderColor: "#558b2f",
-                borderRadius: 10,
-                borderWidth: 2,
-                padding: 5,
-                fontSize: 25,
-                margin: 3,
-              }}
-            >
-              {getCartTotalPrice()}LE
-            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ fontWeight: "bold", width: "50%", fontSize: 20 }}>
+                Name :
+              </Text>
+              <Text
+                style={{
+                  position: "absolute",
+                  right: 10,
+                  textAlign: "center",
+                  width: "50%",
+                  margin: 3,
+                }}
+              >
+                {savedUserData.savedName}
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ fontWeight: "bold", width: "50%", fontSize: 20 }}>
+                phone :
+              </Text>
+              <Text
+                style={{
+                  position: "absolute",
+                  right: 10,
+                  textAlign: "center",
+                  width: "50%",
+                  margin: 3,
+                }}
+              >
+                {savedUserData.savedPhoneNumber}
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ fontWeight: "bold", width: "50%", fontSize: 20 }}>
+                Address :
+              </Text>
+              <Text
+                style={{
+                  position: "absolute",
+                  right: 10,
+                  textAlign: "center",
+                  width: "50%",
+                  margin: 3,
+                }}
+                numberOfLines={1}
+              >
+                {savedUserData.savedAddress}
+              </Text>
+            </View>
+
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ fontWeight: "bold", width: "50%", fontSize: 25 }}>
+                Total Price :
+              </Text>
+              <Text
+                style={{
+                  position: "absolute",
+                  right: 10,
+                  textAlign: "center",
+                  width: "50%",
+                  borderColor: "#558b2f",
+                  borderRadius: 10,
+                  borderWidth: 2,
+                  padding: 5,
+                  fontSize: 25,
+                  margin: 3,
+                }}
+              >
+                {getCartTotalPrice()}LE
+              </Text>
+            </View>
           </ModalContent>
         </BottomModal>
       </View>

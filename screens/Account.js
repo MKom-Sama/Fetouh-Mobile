@@ -7,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ImageBackground,
-  RecyclerViewBackedScrollView,
 } from "react-native";
 
 // Third party
@@ -17,42 +16,19 @@ import PhoneInput from "react-native-phone-input";
 import HideWithKeyboard from "react-native-hide-with-keyboard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
+//utile
+import { getSavedValues } from "../utils/phoneStorage";
+
 import AppTitle from "../components/visuals/AppTitle";
 // Images
 const fetouhBackground = require("../assets/img/fetouhBackground.jpg");
 const AbdoFetouh = require("../assets/img/5aloAbdo.jpeg");
 
-const saveUserToDevice = async (user) => {
-  try {
-    // saving data to device
-    let savingName = await AsyncStorage.setItem("savedName", user.name);
-    let savingPhoneNumber = await AsyncStorage.setItem(
-      "savedPhoneNumber",
-      user.phoneNumber
-    );
-    let savingAddr = await AsyncStorage.setItem("savedAddress", user.address);
-  } catch (err) {
-    console.log("Tried saving data and uh failed : ", err);
-  }
-};
-const getSavedValues = async () => {
-  try {
-    let savedName = await AsyncStorage.getItem("savedName");
-    let savedPhoneNumber = await AsyncStorage.getItem("savedPhoneNumber");
-    let savedAddress = await AsyncStorage.getItem("savedAddress");
-
-    return {
-      savedName,
-      savedPhoneNumber,
-      savedAddress,
-    };
-  } catch (error) {
-    console.log("When retrieving data from device something happened : ", err);
-  }
-};
 export default function Account() {
   const [savedUserData, setSavedUserData] = React.useState({});
-
+  const [editable, setEditable] = React.useState(true);
+  
   React.useEffect(() => {
     getSavedValues().then((res) => {
       const { savedName, savedPhoneNumber, savedAddress } = res;
@@ -61,11 +37,31 @@ export default function Account() {
         phoneNumber: savedPhoneNumber,
         address: savedAddress,
       });
-     // Because apparently it renders only one time...so you need to set value
-      phone.setValue(savedPhoneNumber)  
+      if (savedName && savedPhoneNumber && savedAddress) {
+        setEditable(false);
+      }
+      // Because apparently it renders only one time...so you need to set value
+          phone.setValue(savedPhoneNumber)
+        
     });
   }, []);
-  
+
+  const saveUserToDevice = async (user) => {
+    try {
+      // saving data to device
+      let savingName = await AsyncStorage.setItem("savedName", user.name);
+      let savingPhoneNumber = await AsyncStorage.setItem(
+        "savedPhoneNumber",
+        user.phoneNumber
+      );
+      let savingAddr = await AsyncStorage.setItem("savedAddress", user.address);
+
+      setEditable(false);
+    } catch (err) {
+      console.log("Tried saving data and uh failed : ", err);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
@@ -86,7 +82,11 @@ export default function Account() {
         >
           <Avatar.Image size={125} source={AbdoFetouh} />
         </HideWithKeyboard>
-        <IconButton icon="pencil" style={{ alignSelf: "flex-end" }} />
+        <IconButton
+          icon="pencil"
+          style={{ alignSelf: "flex-end" }}
+          onPress={() => setEditable(true)}
+        />
         <KeyboardAvoidingView behavior="position" style={{ height: "40%" }}>
           <Formik
             enableReinitialize={true}
@@ -109,14 +109,17 @@ export default function Account() {
                     height: 32,
                     marginTop: "5%",
                   }}
+                  disabled={!editable}
                   placeholder="Name"
                 />
                 <PhoneInput
                   value={values.phoneNumber}
+                  disabled={!editable}
                   onChangePhoneNumber={handleChange("phoneNumber")}
                   ref={(ref) => {
                     phone = ref;
                   }}
+                  textStyle={{fontWeight:'bold'}}
                   initialCountry={"eg"}
                   textProps={{
                     placeholder: "Enter a phone number...",
@@ -134,13 +137,18 @@ export default function Account() {
                 <TextInput
                   value={values.address}
                   onChangeText={handleChange("address")}
+                  disabled={!editable}
                   mode="outlined"
                   style={{
                     width: "65%",
                     alignSelf: "center",
+                    maxHeight:'50%',
                   }}
+                  maxHeight={90}
                   placeholder="Address"
                   multiline={true}
+                  numberOfLines={4}
+                  
                 />
                 <HideWithKeyboard style={{ padding: 20 }}>
                   <Button

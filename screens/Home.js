@@ -13,6 +13,8 @@ import {
 
 import { Text, FAB, IconButton, Button } from "react-native-paper";
 
+import { updateCartBadgeRef } from "../App";
+
 import AppTitle from "../components/visuals/AppTitle";
 
 import {
@@ -233,6 +235,7 @@ export default function Home() {
       totalPrice: selectedItemPrice * numericInputVal,
     };
     addToCart(itemToAddToCart); //STORE
+    updateCartBadgeRef(1);
   };
   const renderSelectedCategorySlogan = (categoryName) => {
     switch (categoryName) {
