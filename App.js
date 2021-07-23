@@ -35,8 +35,8 @@ export default function App() {
 
   const renderScene = BottomNavigation.SceneMap({
     CallUs,
-    Home,
-    Cart,
+    Home :()=><Home updateCartBadge={updateCartBadge} />,
+    Cart :()=> <Cart updateCartBadge={updateCartBadgeRef} />,
     Account,
   });
 
@@ -104,7 +104,7 @@ export default function App() {
     );
   }
 }
-export { updateCartBadgeRef };
+
 
 const styles = StyleSheet.create({
   container: {

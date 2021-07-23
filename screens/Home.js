@@ -13,7 +13,7 @@ import {
 
 import { Text, FAB, IconButton, Button } from "react-native-paper";
 
-import { updateCartBadgeRef } from "../App";
+
 
 import AppTitle from "../components/visuals/AppTitle";
 
@@ -39,7 +39,7 @@ const fries = require("../assets/icons/fries-icon.png");
 //menuItem pictures (clean later)
 const veggyPizza = require("../assets/img/vegy-pizza.jpeg");
 
-export default function Home() {
+export default function Home({updateCartBadge}) {
   const { getCart, addToCart } = React.useContext(Store);
 
   // DUMMY DATA
@@ -235,7 +235,7 @@ export default function Home() {
       totalPrice: selectedItemPrice * numericInputVal,
     };
     addToCart(itemToAddToCart); //STORE
-    updateCartBadgeRef(1);
+    updateCartBadge(1);
   };
   const renderSelectedCategorySlogan = (categoryName) => {
     switch (categoryName) {

@@ -20,12 +20,12 @@ import {
 import AppTitle from "../components/visuals/AppTitle";
 import { Store } from "../Store";
 
-import { updateCartBadgeRef } from "../App";
+
 
 //utils
 import { getSavedValues } from "../utils/phoneStorage";
 
-export default function Cart({ jumpTo }) {
+export default function Cart({ jumpTo,updateCartBadge }) {
   const { getCart, getCartTotalPrice, removeFromCart } =
     React.useContext(Store);
 
@@ -83,7 +83,7 @@ export default function Cart({ jumpTo }) {
               }}
               onPress={() => {
                 removeFromCart(item.id, item.totalPrice);
-                updateCartBadgeRef(-1);
+                updateCartBadge(-1);
               }}
             />
             <Text style={{ width: "25%", marginLeft: 20 }}>{item.name}</Text>
