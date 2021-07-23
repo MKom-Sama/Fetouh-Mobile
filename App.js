@@ -22,7 +22,7 @@ const getFonts = () =>
     pacifico: require("./assets/fonts/Pacifico-Regular.ttf"),
   });
 
-let updateCartBadgeRef;
+
 export default function App() {
   // Bottom Navigation
   const [index, setIndex] = React.useState(1);
@@ -36,7 +36,7 @@ export default function App() {
   const renderScene = BottomNavigation.SceneMap({
     CallUs,
     Home :()=><Home updateCartBadge={updateCartBadge} />,
-    Cart :()=> <Cart updateCartBadge={updateCartBadgeRef} />,
+    Cart :()=> <Cart updateCartBadge={updateCartBadge} />,
     Account,
   });
 
@@ -55,7 +55,7 @@ export default function App() {
 
     setRoutes(updatedRoutes);
   };
-  updateCartBadgeRef = updateCartBadge;
+
   // const renderIcon = ({ route, focused }) => {
   //   if (focused) {
   //     //return(<FAB icon={route.icon} />)
