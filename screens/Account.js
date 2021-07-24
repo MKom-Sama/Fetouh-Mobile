@@ -16,7 +16,6 @@ import PhoneInput from "react-native-phone-input";
 import HideWithKeyboard from "react-native-hide-with-keyboard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 //utile
 import { getSavedValues } from "../utils/phoneStorage";
 
@@ -24,11 +23,12 @@ import AppTitle from "../components/visuals/AppTitle";
 // Images
 const fetouhBackground = require("../assets/img/fetouhBackground.jpg");
 const AbdoFetouh = require("../assets/img/5aloAbdo.jpeg");
+const coolPepe = require("../assets/img/pepePP.jpg");
 
 export default function Account() {
   const [savedUserData, setSavedUserData] = React.useState({});
   const [editable, setEditable] = React.useState(true);
-  
+
   React.useEffect(() => {
     getSavedValues().then((res) => {
       const { savedName, savedPhoneNumber, savedAddress } = res;
@@ -41,8 +41,7 @@ export default function Account() {
         setEditable(false);
       }
       // Because apparently it renders only one time...so you need to set value
-          phone.setValue(savedPhoneNumber)
-        
+      phone.setValue(savedPhoneNumber);
     });
   }, []);
 
@@ -70,22 +69,53 @@ export default function Account() {
           style={{
             border: 2,
             height: "40%",
+            borderBottomWidth: 2,
+            borderBottomEndRadius: 10,
+            borderBottomStartRadius: 10,
+            borderColor: "#ef5350",
+            padding:10
           }}
         >
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 22,
+              margin: 8,
+              color: "#ef5330",
+              fontWeight:'bold'
+            }}
+          >
+            كن التغير الذي تريد أن تراه في العالم.
+          </Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              margin: 8,
+              color: "#ef5330",
+              fontWeight:'bold'
+            }}
+          >
+          Be the change you want to see in the world.
+          </Text>
           <ImageBackground
-            source={fetouhBackground}
+            // source={fetouhBackground}
             style={{ flex: 1, resizeMode: "cover" }}
           />
         </View>
         <HideWithKeyboard
           style={{ position: "absolute", alignSelf: "center", top: "38%" }}
         >
-          <Avatar.Image size={125} source={AbdoFetouh} />
+          <Avatar.Image
+            size={125}
+            source={coolPepe}
+          />
         </HideWithKeyboard>
         <IconButton
           icon="pencil"
-          style={{ alignSelf: "flex-end" }}
+          style={{ alignSelf: "flex-end", marginRight: 10 }}
           onPress={() => setEditable(true)}
+          color={"#ef5350"}
         />
         <KeyboardAvoidingView behavior="position" style={{ height: "40%" }}>
           <Formik
@@ -119,7 +149,7 @@ export default function Account() {
                   ref={(ref) => {
                     phone = ref;
                   }}
-                  textStyle={{fontWeight:'bold'}}
+                  textStyle={{ fontWeight: "bold" }}
                   initialCountry={"eg"}
                   textProps={{
                     placeholder: "Enter a phone number...",
@@ -142,13 +172,12 @@ export default function Account() {
                   style={{
                     width: "65%",
                     alignSelf: "center",
-                    maxHeight:'50%',
+                    maxHeight: "50%",
                   }}
                   maxHeight={90}
                   placeholder="Address"
                   multiline={true}
                   numberOfLines={4}
-                  
                 />
                 <HideWithKeyboard style={{ padding: 20 }}>
                   <Button
@@ -162,7 +191,7 @@ export default function Account() {
                       backgroundColor: "#ffa726",
                     }}
                   >
-                    sava data
+                    save data
                   </Button>
                 </HideWithKeyboard>
               </View>
