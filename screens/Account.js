@@ -75,7 +75,7 @@ export default function Account() {
           <ImageBackground
             source={fetouhBackground}
             style={{ flex: 1, resizeMode: "cover" }}
-          ></ImageBackground>
+          />
         </View>
         <HideWithKeyboard
           style={{ position: "absolute", alignSelf: "center", top: "38%" }}
