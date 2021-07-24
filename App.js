@@ -33,12 +33,19 @@ export default function App() {
     { key: "Account", title: "Account", icon: "account" },
   ]);
 
-  const renderScene = BottomNavigation.SceneMap({
-    CallUs,
-    Home :()=><Home updateCartBadge={updateCartBadge} />,
-    Cart :()=> <Cart updateCartBadge={updateCartBadge} />,
-    Account,
-  });
+
+  const renderScene = ({ route, jumpTo }) => {
+    switch (route.key) {
+      case 'CallUs':
+        return <CallUs jumpTo={jumpTo} />;
+      case 'Home':
+        return <Home jumpTo={jumpTo} updateCartBadge={updateCartBadge} />;
+      case 'Cart':
+        return <Cart jumpTo={jumpTo} updateCartBadge={updateCartBadge}  />;
+      case 'Account':
+        return <Account jumpTo={jumpTo} />;
+    }
+  }
 
   const updateCartBadge = (val) => {
     let updatedRoutes = [

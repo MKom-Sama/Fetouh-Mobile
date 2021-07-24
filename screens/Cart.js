@@ -20,12 +20,11 @@ import {
 import AppTitle from "../components/visuals/AppTitle";
 import { Store } from "../Store";
 
-
-
 //utils
 import { getSavedValues } from "../utils/phoneStorage";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
-export default function Cart({ jumpTo,updateCartBadge }) {
+export default function Cart({ jumpTo, updateCartBadge }) {
   const { getCart, getCartTotalPrice, removeFromCart } =
     React.useContext(Store);
 
@@ -63,6 +62,22 @@ export default function Cart({ jumpTo,updateCartBadge }) {
   const checkOut = () => {
     // check if user has his creditentials saved
 
+    const { savedName, savedAddress, savedPhoneNumber } = savedUserData;
+
+    if (savedName == null || savedAddress == null || savedPhoneNumber == null) {
+      setModalVis(false);
+
+      showMessage({
+        message: "Please add your info and save them",
+        type: "danger",
+        icon: "auto",
+        floating: true,
+      });
+
+      jumpTo("Account");
+    } else {
+    }
+
     // jumpTo('Home');
     // send order to backend
 
@@ -83,6 +98,12 @@ export default function Cart({ jumpTo,updateCartBadge }) {
               }}
               onPress={() => {
                 removeFromCart(item.id, item.totalPrice);
+                showMessage({
+                  message: "removed item from cart!",
+                  type: "warning",
+                  icon: "auto",
+                  floating: true,
+                });
                 updateCartBadge(-1);
               }}
             />
@@ -185,76 +206,88 @@ export default function Cart({ jumpTo,updateCartBadge }) {
           }}
         >
           <ModalContent>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ fontWeight: "bold", width: "50%", fontSize: 20 }}>
-                Name :
-              </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                borderRadius: 8,
+                margin: 10,
+                backgroundColor:'#e0e0e0'
+              }}
+            >
               <Text
                 style={{
-                  position: "absolute",
-                  right: 10,
                   textAlign: "center",
-                  width: "50%",
+                  alignSelf: "center",
+                  padding: 5,
+                  fontSize: 35,
                   margin: 3,
+                  width: "100%",
+                  color: '#1b5e20',
                 }}
               >
-                {savedUserData.savedName}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ fontWeight: "bold", width: "50%", fontSize: 20 }}>
-                phone :
-              </Text>
-              <Text
-                style={{
-                  position: "absolute",
-                  right: 10,
-                  textAlign: "center",
-                  width: "50%",
-                  margin: 3,
-                }}
-              >
-                {savedUserData.savedPhoneNumber}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ fontWeight: "bold", width: "50%", fontSize: 20 }}>
-                Address :
-              </Text>
-              <Text
-                style={{
-                  position: "absolute",
-                  right: 10,
-                  textAlign: "center",
-                  width: "50%",
-                  margin: 3,
-                }}
-                numberOfLines={1}
-              >
-                {savedUserData.savedAddress}
+                {getCartTotalPrice()} £E
               </Text>
             </View>
 
-            <View style={{ flexDirection: "row" }}>
-              <Text style={{ fontWeight: "bold", width: "50%", fontSize: 25 }}>
-                Total Price :
-              </Text>
-              <Text
-                style={{
-                  position: "absolute",
-                  right: 10,
-                  textAlign: "center",
-                  width: "50%",
-                  borderColor: "#558b2f",
-                  borderRadius: 10,
-                  borderWidth: 2,
-                  padding: 5,
-                  fontSize: 25,
-                  margin: 3,
-                }}
-              >
-                {getCartTotalPrice()}LE
-              </Text>
+            {/* User info */}
+            <View
+              style={{
+                borderColor: "#000000",
+                borderWidth: 2,
+                padding: 8,
+                borderRadius: 8,
+                borderStyle: "dashed",
+                borderColor: "#1b5e20",
+              }}
+            >
+              {/* Name */}
+              <View style={{ flexDirection: "row", margin: 5 }}>
+                <Text style={styles.recieptTitle}>Name :</Text>
+                <Text
+                  style={{
+                    position: "absolute",
+                    right: 10,
+                    textAlign: "center",
+                    width: "50%",
+                    margin: 3,
+                  }}
+                >
+                  {savedUserData.savedName}
+                </Text>
+              </View>
+
+              {/* Phone */}
+              <View style={{ flexDirection: "row", margin: 5 }}>
+                <Text style={styles.recieptTitle}>phone :</Text>
+                <Text
+                  style={{
+                    position: "absolute",
+                    right: 10,
+                    textAlign: "center",
+                    width: "50%",
+                    margin: 3,
+                  }}
+                >
+                  {savedUserData.savedPhoneNumber}
+                </Text>
+              </View>
+
+              {/* Address */}
+              <View style={{ flexDirection: "row", margin: 5 }}>
+                <Text style={styles.recieptTitle}>Address :</Text>
+                <Text
+                  style={{
+                    position: "absolute",
+                    right: 10,
+                    textAlign: "center",
+                    width: "50%",
+                    margin: 3,
+                  }}
+                  numberOfLines={1}
+                >
+                  {savedUserData.savedAddress}
+                </Text>
+              </View>
             </View>
           </ModalContent>
         </BottomModal>
@@ -284,5 +317,11 @@ const styles = StyleSheet.create({
   totalPrice: {
     padding: 20,
     backgroundColor: "#f6f5f6",
+  },
+  recieptTitle: {
+    fontWeight: "bold",
+    width: "50%",
+    fontSize: 15,
+    fontStyle: "italic",
   },
 });

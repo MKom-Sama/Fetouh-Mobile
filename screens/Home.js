@@ -307,6 +307,7 @@ export default function Home({updateCartBadge}) {
                   message: "Added to cart!",
                   type: "success",
                   icon: "success",
+                  floating:true
                 });
               }}
             >
