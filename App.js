@@ -22,7 +22,6 @@ const getFonts = () =>
     pacifico: require("./assets/fonts/Pacifico-Regular.ttf"),
   });
 
-
 export default function App() {
   // Bottom Navigation
   const [index, setIndex] = React.useState(1);
@@ -33,19 +32,18 @@ export default function App() {
     { key: "Account", title: "Account", icon: "account" },
   ]);
 
-
   const renderScene = ({ route, jumpTo }) => {
     switch (route.key) {
-      case 'CallUs':
+      case "CallUs":
         return <CallUs jumpTo={jumpTo} />;
-      case 'Home':
+      case "Home":
         return <Home jumpTo={jumpTo} updateCartBadge={updateCartBadge} />;
-      case 'Cart':
-        return <Cart jumpTo={jumpTo} updateCartBadge={updateCartBadge}  />;
-      case 'Account':
+      case "Cart":
+        return <Cart jumpTo={jumpTo} updateCartBadge={updateCartBadge} resetCartBadge={resetCartBadge} />;
+      case "Account":
         return <Account jumpTo={jumpTo} />;
     }
-  }
+  };
 
   const updateCartBadge = (val) => {
     let updatedRoutes = [
@@ -56,6 +54,21 @@ export default function App() {
         title: "Cart",
         icon: "basket",
         badge: routes[2]["badge"] + val,
+      },
+      routes[3],
+    ];
+
+    setRoutes(updatedRoutes);
+  };
+  const resetCartBadge = () => {
+    let updatedRoutes = [
+      routes[0],
+      routes[1],
+      {
+        key: "Cart",
+        title: "Cart",
+        icon: "basket",
+        badge: 0,
       },
       routes[3],
     ];
@@ -111,7 +124,6 @@ export default function App() {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

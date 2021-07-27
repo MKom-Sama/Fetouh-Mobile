@@ -24,8 +24,8 @@ import { Store } from "../Store";
 import { getSavedValues } from "../utils/phoneStorage";
 import { showMessage, hideMessage } from "react-native-flash-message";
 
-export default function Cart({ jumpTo, updateCartBadge }) {
-  const { getCart, getCartTotalPrice, removeFromCart } =
+export default function Cart({ jumpTo, updateCartBadge, resetCartBadge }) {
+  const { getCart, getCartTotalPrice, removeFromCart, cartCheckOut } =
     React.useContext(Store);
 
   const [modalVis, setModalVis] = React.useState(false);
@@ -59,7 +59,7 @@ export default function Cart({ jumpTo, updateCartBadge }) {
         break;
     }
   };
-  const checkOut = () => {
+  const checkOut = async () => {
     // check if user has his creditentials saved
 
     const { savedName, savedAddress, savedPhoneNumber } = savedUserData;
@@ -75,13 +75,38 @@ export default function Cart({ jumpTo, updateCartBadge }) {
       });
 
       jumpTo("Account");
+    } else if (getCartTotalPrice() == 0) {
+      setModalVis(false);
+
+      showMessage({
+        message: "You need to order something",
+        type: "danger",
+        icon: "auto",
+        floating: true,
+      });
+
+      jumpTo("Home");
     } else {
+      let sendingOrder = await cartCheckOut();
+
+      if (sendingOrder == false) {
+        showMessage({
+          message: "Something went wrong :(",
+          type: "danger",
+          icon: "auto",
+          floating: true,
+        });
+      } else {
+        // order was succesful
+        resetCartBadge();
+      }
+      setModalVis(false);
     }
 
     // jumpTo('Home');
     // send order to backend
 
-    console.log("I got this!");
+    // console.log("I got this!");
   };
   const renderCart = () => {
     const renderItem = ({ item }) => {
@@ -211,7 +236,7 @@ export default function Cart({ jumpTo, updateCartBadge }) {
                 flexDirection: "row",
                 borderRadius: 8,
                 margin: 10,
-                backgroundColor:'#e0e0e0'
+                backgroundColor: "#e0e0e0",
               }}
             >
               <Text
@@ -222,7 +247,7 @@ export default function Cart({ jumpTo, updateCartBadge }) {
                   fontSize: 35,
                   margin: 3,
                   width: "100%",
-                  color: '#1b5e20',
+                  color: "#1b5e20",
                 }}
               >
                 {getCartTotalPrice()} £E
