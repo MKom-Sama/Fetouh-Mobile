@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 // Third party
-import { Avatar, IconButton, TextInput, Button } from "react-native-paper";
+import { Avatar, IconButton, TextInput, Button,FAB } from "react-native-paper";
 import { Formik } from "formik";
 import PhoneInput from "react-native-phone-input";
 import HideWithKeyboard from "react-native-hide-with-keyboard";
@@ -180,19 +180,17 @@ export default function Account() {
                   numberOfLines={4}
                 />
                 <HideWithKeyboard style={{ padding: 20 }}>
-                  <Button
+                  <FAB
                     mode="contained"
                     onPress={handleSubmit}
                     icon="content-save-all"
                     style={{
-                      width: "90%",
-                      marginTop: 10,
-                      alignSelf: "center",
+                      position: 'absolute',
+                      right: '10%',
+                      bottom:'30%',
                       backgroundColor: "#ffa726",
                     }}
-                  >
-                    save data
-                  </Button>
+                  />
                 </HideWithKeyboard>
               </View>
             )}
