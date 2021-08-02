@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, SafeAreaView } from "react-native";
+import { StyleSheet, View, SafeAreaView, I18nManager } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { StoreProvider } from "./Store";
 
@@ -39,7 +39,13 @@ export default function App() {
       case "Home":
         return <Home jumpTo={jumpTo} updateCartBadge={updateCartBadge} />;
       case "Cart":
-        return <Cart jumpTo={jumpTo} updateCartBadge={updateCartBadge} resetCartBadge={resetCartBadge} />;
+        return (
+          <Cart
+            jumpTo={jumpTo}
+            updateCartBadge={updateCartBadge}
+            resetCartBadge={resetCartBadge}
+          />
+        );
       case "Account":
         return <Account jumpTo={jumpTo} />;
     }
@@ -90,6 +96,11 @@ export default function App() {
 
   // Font loaded
   const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  React.useEffect(() => {
+    I18nManager.allowRTL(false);
+    I18nManager.forceRTL(false);
+  }, []);
 
   // check for stuff loading
   if (fontsLoaded) {
