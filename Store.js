@@ -48,7 +48,7 @@ export const StoreProvider = (props) => {
         phoneNumber: user.savedPhoneNumber,
         order: cart,
         totalDue: cartTotalPrice,
-        created: firebase.database.ServerValue.TIMESTAMP 
+        created: firebase.firestore.FieldValue.serverTimestamp()
       };
 
       const sendingOrder = await db.collection("orders").add(dbOrder);
