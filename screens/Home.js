@@ -176,7 +176,7 @@ export default function Home({updateCartBadge}) {
                 position: "absolute",
                 bottom: 0,
                 height: 50,
-                width: "50%",
+                width: "60%",
                 backgroundColor: "#F5F5F6",
                 borderTopRightRadius: 30,
                 borderBottomLeftRadius: 30,
@@ -203,6 +203,7 @@ export default function Home({updateCartBadge}) {
         renderItem={renderItem}
         contentContainerStyle={{
           paddingHorizontal: 20,
+          paddingBottom:'10%'
         }}
         style={{ height: "64%" }}
         scrollEnabled

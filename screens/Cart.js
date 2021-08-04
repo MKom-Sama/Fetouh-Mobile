@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { Button, IconButton } from "react-native-paper";
+import { Button, IconButton, FAB } from "react-native-paper";
 
 import {
   BottomModal,
@@ -167,33 +167,35 @@ export default function Cart({ jumpTo, updateCartBadge, resetCartBadge }) {
       );
     };
     return (
-      <View style={{ padding: 20 }}>
+      <View style={{ padding: 20, height: "90%" }}>
         <FlatList
           data={getCart()}
           scrollEnabled={true}
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
-          contentContainerStyle={{ flexGrow: 1 }}
-          style={{ height: "86%" }}
+          contentContainerStyle={{ flexGrow: 1,paddingBottom:'10%'}}
+          // style={{ height: "80%" }}
         />
-        <View style={{}}>
-          <Button
+        <View
+          style={{
+            position: "absolute",
+            bottom: "10%",
+            width: "100%",
+            alignSelf: "center",
+          }}
+        >
+          <FAB
             mode="contained"
             icon="check-outline"
             style={{
               backgroundColor: "#ffa726",
-              position: "absolute",
-              top: 0,
-              width: "90%",
-              alignSelf: "center",
+              alignSelf: "flex-end",
             }}
             onPress={() => {
               setModalVis(true);
               getUserDataOnDevice();
             }}
-          >
-            Checkout
-          </Button>
+          />
         </View>
         <BottomModal
           visible={modalVis}
