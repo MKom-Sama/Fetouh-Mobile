@@ -7,7 +7,7 @@ import AppTitle from "../components/visuals/AppTitle";
 
 import { callNumber, openGPS } from "../utils/linking";
 
-const fetouhLocationPNG = require("../assets/img/fetouhLocation.png");
+
 const fetouhBackground = require("../assets/img/fetouhBackground.jpg");
 export default function CallUs() {
   return (

@@ -22,7 +22,6 @@ import { getSavedValues } from "../utils/phoneStorage";
 import AppTitle from "../components/visuals/AppTitle";
 // Images
 const fetouhBackground = require("../assets/img/fetouhBackground.jpg");
-const AbdoFetouh = require("../assets/img/5aloAbdo.jpeg");
 const coolPepe = require("../assets/img/pepePP.jpg");
 
 export default function Account() {
