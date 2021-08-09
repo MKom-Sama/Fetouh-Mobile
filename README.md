@@ -5,6 +5,7 @@ This is a food ordering app for a restaurant I like!
 **STACK :** _React Native (Expo) , Firebase_
 
 [Download APK](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40mkom/Fetouh63-e71d187d458e4764985059fa60eaafd2-signed.apk)
+(Try ordering you'll find your order [here](https://fetouh63.herokuapp.com/) just give the site a min since its hosted for free.)
 
 The completed project should be something like this:
 
@@ -34,10 +35,9 @@ The completed project should be something like this:
   <img class="margin" align="left" src="https://cdn.discordapp.com/attachments/874392438721101844/874392499463012422/splashScreen.png" width="45%" height="669" />
   <img class="margin" align="right" src="https://cdn.discordapp.com/attachments/874392438721101844/874392498854854686/Home.png" width="45%" height="669" />
   </div>
-  <br>
-
+ 
 <div align="center">
 <img class="margin" align="left" src="https://cdn.discordapp.com/attachments/874392438721101844/874392499152633886/OrderConfirmation.png" 
-height="669" width="45%" />
-  <img class="margin" align="right" src="https://cdn.discordapp.com/attachments/874392438721101844/874392489740607538/Account.png"  height="669" width="45%" />
+width="45%" height="669"  />
+  <img class="margin" align="right" src="https://cdn.discordapp.com/attachments/874392438721101844/874392489740607538/Account.png"  width="45%" height="669"  />
   </div>
