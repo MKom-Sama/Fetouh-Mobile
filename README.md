@@ -29,14 +29,15 @@ The completed project should be something like this:
 **Discord** : `MKom_Sama#8043` .
 
 <!-- Some code for the gallery -->
-<style>
-    .margin{
-        margin:5px
-    }
-    </style>
 
-  <img class="margin" align="left" src="https://cdn.discordapp.com/attachments/874392438721101844/874392499463012422/splashScreen.png" width="45%" />
-  <img class="margin" align="right" src="https://cdn.discordapp.com/attachments/874392438721101844/874392498854854686/Home.png" width="45%" />
+<div align="center">
+  <img class="margin" align="left" src="https://cdn.discordapp.com/attachments/874392438721101844/874392499463012422/splashScreen.png" width="45%" height="669" />
+  <img class="margin" align="right" src="https://cdn.discordapp.com/attachments/874392438721101844/874392498854854686/Home.png" width="45%" height="669" />
+  </div>
+  <br>
 
-<img class="margin" align="left" src="https://cdn.discordapp.com/attachments/874392438721101844/874392499152633886/OrderConfirmation.png" width="45%" />
-  <img class="margin" align="right" src="https://cdn.discordapp.com/attachments/874392438721101844/874392489740607538/Account.png" width="45%" />
+<div align="center">
+<img class="margin" align="left" src="https://cdn.discordapp.com/attachments/874392438721101844/874392499152633886/OrderConfirmation.png" 
+height="669" width="45%" />
+  <img class="margin" align="right" src="https://cdn.discordapp.com/attachments/874392438721101844/874392489740607538/Account.png"  height="669" width="45%" />
+  </div>
